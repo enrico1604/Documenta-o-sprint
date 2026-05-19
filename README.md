@@ -147,8 +147,8 @@ O system prompt utilizado para condicionar o agente ao contexto GoodWe está dis
 sistema-chargegrid-ai/
 ├── README.md
 ├── docs/
-│   ├── fluxograma.png
-│   ├── modelo-de-teste.md
+│   ├── fluxograma.html
+│   ├── modelo-de-teste.html
 │   └── system-prompt.md
 └── src/
     └── (desenvolvimento Sprint 2+)
