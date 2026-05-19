@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<title>Fluxograma — Sistema ChargeGrid AI</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap" rel="stylesheet"/>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #ffffff;
+    font-family: 'DM Sans', sans-serif;
+    padding: 48px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 { font-size: 22px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+  .subtitle { font-size: 12px; color: #aaa; margin-bottom: 48px; font-family: 'DM Mono', monospace; }
+
+  .flow { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 760px; }
+
+  .layer-label {
+    font-size: 10px; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: #bbb;
+    margin-bottom: 10px; margin-top: 32px;
+    align-self: flex-start; padding-left: 2px;
+  }
+
+  .arrow-down {
+    width: 2px; height: 36px; background: #d4d4d0; margin: 0 auto; position: relative;
+  }
+  .arrow-down::after {
+    content: ''; position: absolute; bottom: -7px; left: 50%; transform: translateX(-50%);
+    border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 9px solid #d4d4d0;
+  }
+
+  .box { border-radius: 10px; padding: 13px 22px; text-align: center; }
+  .box .title { font-size: 14px; font-weight: 600; }
+  .box .desc  { font-size: 12px; margin-top: 3px; opacity: .75; }
+
+  .gray   { background: #f5f5f3; border: 1.5px solid #e0e0dc; color: #444; }
+  .blue   { background: #e8f4fd; border: 1.5px solid #b3d9f5; color: #0a3d6b; }
+  .amber  { background: #fff8e6; border: 1.5px solid #fad76b; color: #6b4a00; }
+  .green  { background: #edf7e6; border: 1.5px solid #b5dfa0; color: #2a5c10; }
+  .purple { background: #f0eefe; border: 1.5px solid #c8c2f5; color: #3a2e8f; }
+  .teal   { background: #e6f7f2; border: 1.5px solid #9de0c8; color: #0a4f3a; }
+
+  .row { display: flex; gap: 14px; justify-content: center; width: 100%; }
+  .row .box { flex: 1; max-width: 320px; }
+
+  .decision-box {
+    background: #f5f5f3; border: 1.5px solid #d4d4d0; border-radius: 10px;
+    padding: 13px 22px; font-size: 13px; font-weight: 500; color: #555;
+    text-align: center; width: 340px;
+  }
+
+  /* SPLIT */
+  .split {
+    width: 100%; max-width: 760px; height: 40px; position: relative;
+  }
+  .split .h { position: absolute; top: 0; height: 2px; background: #d4d4d0; }
+  .split .v { position: absolute; top: 0; width: 2px; background: #d4d4d0; }
+  .split .tip {
+    position: absolute; bottom: -7px;
+    border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 9px solid #d4d4d0;
+  }
+
+  /* COLUNAS */
+  .cols { display: flex; width: 100%; max-width: 760px; }
+  .col { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0 14px; }
+  .col-label {
+    font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 20px; margin-bottom: 12px;
+  }
+  .col-label.l-teal   { color: #0a4f3a; background: #e6f7f2; }
+  .col-label.l-purple { color: #3a2e8f; background: #f0eefe; }
+
+  .col-divider { width: 1.5px; background: #ebebeb; margin: 40px 0; }
+
+  .tool-box { width: 100%; border-radius: 10px; padding: 11px 16px; text-align: center; margin-bottom: 10px; }
+  .tool-box .title { font-size: 13px; font-weight: 600; }
+  .tool-box .desc  { font-size: 11px; margin-top: 2px; opacity: .75; font-family: 'DM Mono', monospace; }
+
+  .col-note { font-size: 11px; color: #aaa; text-align: center; line-height: 1.6; margin-top: 4px; }
+
+  /* CONVERGÊNCIA */
+  .converge { width: 100%; max-width: 760px; height: 48px; position: relative; }
+  .converge .h { position: absolute; bottom: 0; height: 2px; background: #d4d4d0; }
+  .converge .v { position: absolute; top: 0; width: 2px; background: #d4d4d0; }
+  .converge .tip {
+    position: absolute; bottom: -7px; left: 50%; transform: translateX(-50%);
+    border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 9px solid #d4d4d0;
+  }
+
+  .footer { margin-top: 48px; font-size: 11px; color: #ccc; font-family: 'DM Mono', monospace; }
+</style>
+</head>
+<body>
+
+<h1>Sistema ChargeGrid AI</h1>
+<p class="subtitle">EV Challenge 2026 · FIAP x GoodWe · Fluxo de funcionamento do agente</p>
+
+<div class="flow">
+
+  <!-- ENTRADA -->
+  <div class="layer-label">entrada</div>
+  <div class="row">
+    <div class="box gray"><div class="title">Operador</div><div class="desc">Gestão do eletroposto</div></div>
+    <div class="box gray"><div class="title">Cliente / Motorista</div><div class="desc">Sessão de recarga</div></div>
+  </div>
+
+  <div class="arrow-down"></div>
+
+  <!-- APP -->
+  <div class="layer-label">app</div>
+  <div class="box blue" style="width:380px">
+    <div class="title">App ChargeGrid AI</div>
+    <div class="desc">Interface web / mobile — GoodWe HCA G2</div>
+  </div>
+
+  <div class="arrow-down"></div>
+
+  <!-- CONTEXTO -->
+  <div class="layer-label">contexto injetado</div>
+  <div class="row">
+    <div class="box amber"><div class="title">Dados dinâmicos</div><div class="desc">Sessão ativa · potência · tarifa vigente</div></div>
+    <div class="box green"><div class="title">Base documental</div><div class="desc">App · GoodWe · carregadores · FAQs</div></div>
+  </div>
+
+  <div class="arrow-down"></div>
+
+  <!-- AGENTE -->
+  <div class="layer-label">agente de ia</div>
+  <div class="box purple" style="width:400px">
+    <div class="title">Agente — GPT-4o + LangChain</div>
+    <div class="desc">Interpreta a pergunta e decide a ação</div>
+  </div>
+
+  <div class="arrow-down"></div>
+
+  <!-- DECISÃO -->
+  <div class="layer-label">decisão</div>
+  <div class="decision-box">Responde via RAG ou executa uma ferramenta?</div>
+
+  <!-- SPLIT -->
+  <div class="split">
+    <div class="h" style="left:22%;right:22%;top:0"></div>
+    <div class="v" style="left:22%;height:40px"></div>
+    <div class="v" style="right:22%;height:40px"></div>
+    <div class="tip" style="left:calc(22% - 6px)"></div>
+    <div class="tip" style="right:calc(22% - 6px)"></div>
+  </div>
+
+  <!-- COLUNAS -->
+  <div class="cols">
+
+    <!-- RAG -->
+    <div class="col">
+      <div class="col-label l-teal">via RAG</div>
+      <div class="tool-box teal" style="max-width:280px">
+        <div class="title">RAG</div>
+        <div class="desc">Busca na base documental</div>
+      </div>
+      <div class="col-note">Dúvidas sobre o serviço<br>Problemas técnicos<br>Informações sobre a GoodWe</div>
+    </div>
+
+    <div class="col-divider"></div>
+
+    <!-- FERRAMENTAS -->
+    <div class="col">
+      <div class="col-label l-purple">via ferramenta</div>
+      <div class="tool-box purple">
+        <div class="title">calcular_preco()</div>
+        <div class="desc">kWh consumido × tarifa vigente</div>
+      </div>
+      <div class="tool-box purple">
+        <div class="title">calcular_demanda()</div>
+        <div class="desc">status e distribuição de potência</div>
+      </div>
+      <div class="tool-box purple">
+        <div class="title">calcular_estimativa()</div>
+        <div class="desc">tempo restante de recarga</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONVERGÊNCIA -->
+  <div class="converge">
+    <div class="h" style="left:22%;right:22%;bottom:0"></div>
+    <div class="v" style="left:22%;top:0;height:48px"></div>
+    <div class="v" style="right:22%;top:0;height:48px"></div>
+    <div class="tip"></div>
+  </div>
+
+  <!-- SAÍDA -->
+  <div class="layer-label">saída</div>
+  <div class="box blue" style="width:380px">
+    <div class="title">Resposta no app</div>
+    <div class="desc">Texto gerado pelo agente ao usuário</div>
+  </div>
+
+  <div class="arrow-down"></div>
+
+  <!-- LOG -->
+  <div class="box gray" style="width:380px">
+    <div class="title">Log de sessão</div>
+    <div class="desc">Retroalimenta o banco de dados dinâmico</div>
+  </div>
+
+</div>
+
+<div class="footer">Sistema ChargeGrid AI — EV Challenge 2026 — FIAP x GoodWe</div>
+
+</body>
+</html>
