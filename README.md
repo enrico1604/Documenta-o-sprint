@@ -153,22 +153,6 @@ sistema-chargegrid-ai/
 └── src/
     └── (desenvolvimento Sprint 2+)
 
-```
 
-```
 
----
 
-## 📋 Status do Projeto
-
-| Sprint | Descrição | Status |
-|---|---|---|
-| Sprint 1 | Exploração, planejamento e documentação | ✅ Concluída |
-| Sprint 2 | Desenvolvimento do MVP | 🔜 Em breve |
-| Sprint 3 | Testes e integração com API GoodWe | 🔜 Em breve |
-| Sprint 4 | Apresentação final | 🔜 Em breve |
-
----
-
-*FIAP x GoodWe — EV Challenge 2026*
-```
