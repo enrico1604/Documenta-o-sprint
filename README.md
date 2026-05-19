@@ -79,7 +79,6 @@ O fluxograma completo está disponível em `/docs/fluxograma.png`.
 
 **Resumo do fluxo:**
 
-```
 Usuário
     ↓
 App ChargeGrid AI
@@ -95,7 +94,8 @@ Responde direto ou usa ferramenta?
 Resposta no app
     ↓
 Log de sessão → BD dinâmico
-```
+
+
 
 ---
 
@@ -144,7 +144,6 @@ O system prompt utilizado para condicionar o agente ao contexto GoodWe está dis
 
 ## 📁 Estrutura do Repositório
 
-```
 sistema-chargegrid-ai/
 ├── README.md
 ├── docs/
@@ -153,6 +152,9 @@ sistema-chargegrid-ai/
 │   └── system-prompt.md
 └── src/
     └── (desenvolvimento Sprint 2+)
+
+```
+
 ```
 
 ---
